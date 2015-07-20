@@ -2,11 +2,11 @@
 
 Claude Mellan (1598 to 1688) was a French artist and engraver. He is remembered today (if at all) mainly for his virtuosic engravings, in which the image consists of a single spiral groove starting at the centre and winding outwards (like a vinyl record). The different tones are obtained by the slight swelling and shrinking of the line as it proceeds on its spiral outward course.
 
-![mellanized Steve Jobs](steve-jobs-mellan-400.jpg)
+![mellanized Steve Jobs](test/steve-jobs-mellan-400.jpg)
 
 Today's computers don't find these images difficult to produce, but the effect is pleasing. This Julia package will 'Mellanize' images and output a PDF file. I want to investigate laser-cutting an image this way one day...
 
-![mellanized Obama](obama-mellan-400.jpg)
+![mellanized Obama](test/obama-mellan-400.jpg)
 
 # Requirements
 
