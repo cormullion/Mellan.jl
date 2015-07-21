@@ -26,7 +26,8 @@ You also need the Luxor (a simple Cairo wrapper, also on my GitHub page), Color,
 	    startradius     = 5,
 	    margin          = 10,
 	    awaystep        = 1,
-	    chord           = 4)
+	    chord           = 4,
+	    annotation      = true)
 
 Use the `mellanize` function and supply a path name of an image and the required sidelength. The image should be square. The keyword parameters are all optional, but the ones of interest are:
 
@@ -46,3 +47,6 @@ Use the `mellanize` function and supply a path name of an image and the required
 
 	the length of each line. This is constant, although the line width changes.
 
+- annotation
+
+    add annotation at the bottom of the image showing current settings
