@@ -34,7 +34,8 @@ function mellanize(imagefile, side;
         startradius     = 5,   # starting radius
         margin          = 20,
         awaystep        = 2, # controls how much the radius lengthens for each step,
-        chord           = 10 # length of each stroke
+        chord           = 10, # length of each stroke
+        annotation      = false
         )
     tic()
     global pageside = side
@@ -67,11 +68,13 @@ function mellanize(imagefile, side;
         startpoint = endpoint
     end
 
-    # print the used parameter values discreetly
-    fontsize(5)
-    setopacity(0.2)
-    text("linescaler=$linescaler, startradius=$startradius, margin=$margin, awaystep=$awaystep, chord=$chord",
-        -pageside/2 + 10 , (pageside/2) - 5)
+    if annotation == true
+        # print the used parameter values discreetly
+        fontsize(5)
+        setopacity(0.2)
+        text("linescaler=$linescaler, startradius=$startradius, margin=$margin, awaystep=$awaystep, chord=$chord",
+            -pageside/2 + margin , (pageside/2) - 5)
+    end
     finish()
     preview()
     return toc()
