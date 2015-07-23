@@ -8,13 +8,13 @@ println("loading Color")
 using Color
 println("loading Images")
 using Images
-println("finished loading") # looking forward to version 0.4 when this isn't required...
+println("finished loading") # looking forward to version 0.4 when this aren't needed...
 
 function getpixel(grayimage, x, y)
     # get grey value of pixel at x/y from image
     # since origin is in the middle of the page,
     # x and y are between -imagewidth/2 and +imagewidth/2
-    # convert to values between 1 (not 0) to pageside
+    # convert to values between 1 (not 0!) and imagewidth
     global imagewidth
     x1 = 1 + x + (imagewidth/2)
     y1 = 1 + y + (imagewidth/2)
@@ -29,7 +29,7 @@ function mellanize(imagefile, side;
         backgroundcolor = color("antiquewhite2"),
         startradius     = 5,   # starting radius
         margin          = 15,
-        awaystep        = 2, # controls how much the radius lengthens for each step,
+        awaystep        = 2,  # controls how much the radius lengthens for each step,
         chord           = 10, # length of each stroke
         annotation      = false
         )
@@ -67,7 +67,7 @@ function mellanize(imagefile, side;
                abs(startpoint.y) <  imw2 &&
                abs(endpoint.x)   <  imw2 &&
                abs(endpoint.y)   <  imw2
-                    setline(linescaler * getpixel(grayimage, startpoint.x, startpoint.y)) # actually should be average of start and end
+                    setline(linescaler * getpixel(grayimage, startpoint.x, startpoint.y)) # actually should be average of start and end...
             else
                 setline(0)
             end
@@ -76,7 +76,7 @@ function mellanize(imagefile, side;
     end
 
     if annotation == true
-        # print the used parameter values discreetly
+        # print the used parameter values discreetly in the left corner
         fontsize(5)
         setopacity(0.2)
         text("linescaler=$linescaler, startradius=$startradius, margin=$margin, awaystep=$awaystep, chord=$chord",
