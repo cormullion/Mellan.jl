@@ -49,7 +49,7 @@ result = mellanize("steve-jobs.jpg",
     startradius=5,
     margin=20,
     awaystep=0.5,
-    chord=3.
+    chord=3,
     annotation=true
     )
 
