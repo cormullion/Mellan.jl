@@ -23,8 +23,8 @@ The image should be square (obviously), and a JPG or 8 bit PNG.
     mellanize("obama.jpg",
 	    800,
 	    linescaler      = 5,
-	    foregroundcolor = Color.color("gray30"),
-	    backgroundcolor = Color.color("antiquewhite2"),
+	    foregroundcolor = "gray30",
+	    backgroundcolor = "antiquewhite2",
 	    startradius     = 5,
 	    margin          = 10,
 	    awaystep        = 1,
@@ -52,3 +52,5 @@ Use the `mellanize` function and supply a path name of an image and the required
 - annotation
 
     add annotation at the bottom of the image showing current settings (default false). This is useful when experimenting.
+
+Return value is currently the time taken...

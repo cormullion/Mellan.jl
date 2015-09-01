@@ -4,8 +4,8 @@ export mellanize
 
 println("loading Luxor")
 using Luxor
-println("loading Color")
-using Color
+println("loading Colors")
+using Colors
 println("loading Images")
 using Images
 println("finished loading") # looking forward to version 0.4 when this aren't needed...
@@ -25,8 +25,8 @@ end
 # side is the required image size of sides
 function mellanize(imagefile, side;
         linescaler      = 5, # multiply the grey value of a pixel [0,1] to get this width of line
-        foregroundcolor = color("black"),
-        backgroundcolor = color("antiquewhite2"),
+        foregroundcolor = "black",
+        backgroundcolor = "antiquewhite2",
         startradius     = 5,   # starting radius
         margin          = 15,
         awaystep        = 2,  # controls how much the radius lengthens for each step,
