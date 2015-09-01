@@ -1,5 +1,4 @@
 using Mellan
-using Base.Test
 
 result = mellanize("obama.jpg",
     800,
@@ -11,7 +10,7 @@ result = mellanize("obama.jpg",
     awaystep        = 1,
     chord           = 4)
 
-@test 0.1 < result < 15 # tests whether process took a reasonable amount of time...
+println("took $result seconds")
 
 result = mellanize("steve-jobs.jpg",
     800,
@@ -25,7 +24,7 @@ result = mellanize("steve-jobs.jpg",
     annotation=true
     )
 
-@test 0.1 < result < 15
+println("took $result seconds")
 
 result = mellanize("obama.jpg",
     400,
@@ -37,7 +36,7 @@ result = mellanize("obama.jpg",
     awaystep        = 0.8,
     chord           = 3)
 
-@test 0.1 < result < 15
+println("took $result seconds")
 
 result = mellanize("steve-jobs.jpg",
     400,
@@ -51,6 +50,6 @@ result = mellanize("steve-jobs.jpg",
     annotation=true
     )
 
-@test 0.1 < result < 15 # took too long! ;)
+println("took $result seconds")
 
 exit()
