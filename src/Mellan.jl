@@ -4,13 +4,9 @@ module Mellan
 
 export mellanize
 
-println("loading Luxor")
 using Luxor
-println("loading Colors")
 using Colors
-println("loading Images")
 using Images
-println("finished loading") # looking forward to version 0.4 when this aren't needed...
 
 function getpixel(grayimage, x, y)
     # get grey value of pixel at x/y from image
