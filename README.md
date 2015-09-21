@@ -10,7 +10,7 @@ Today's computers don't find these images difficult to produce, but the effect i
 
 # Requirements
 
-Julia v0.3.
+Julia v0.4.
 
 You also need the Luxor (a simple Cairo wrapper, also on my GitHub page), Color, and Images packages.
 
