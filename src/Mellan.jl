@@ -10,7 +10,7 @@ println("loading Colors")
 using Colors
 println("loading Images")
 using Images
-println("finished loading") # looking forward to version 0.4 when this aren't needed...
+println("finished loading")
 
 function getpixel(grayimage, x, y)
     # get grey value of pixel at x/y from image
@@ -20,7 +20,7 @@ function getpixel(grayimage, x, y)
     global imagewidth
     x1 = 1 + x + (imagewidth/2)
     y1 = 1 + y + (imagewidth/2)
-    return float(1 - grayimage[floor(x1), floor(y1)])
+    return float(1 - grayimage[convert(Int, floor(x1)), convert(Int, floor(y1))])
 end
 
 # imagefile is path of 8bit PNG or JPG
