@@ -8,8 +8,8 @@ println("loading Luxor")
 using Luxor
 println("loading Colors")
 using Colors
-println("loading Images")
-using Images
+println("importing Images")
+import Images
 println("finished loading")
 
 function getpixel(grayimage, x, y)
@@ -40,9 +40,9 @@ function mellanize(imagefile, side;
     global imagewidth = pageside - margin
     outputfilename = splitext(imagefile)[1] * "-mellan-$(side).pdf"
     Drawing(pageside, pageside, outputfilename)
-    img1 = imread(imagefile)
+    img1 = Images.load(imagefile)
     img = Images.imresize(img1, (imagewidth, imagewidth))
-    grayimage = convert(Image{Gray}, img)
+    grayimage = convert(Images.Image{Gray}, img)
     origin()
     centerX = centerY = 0
     background(backgroundcolor)
@@ -61,7 +61,7 @@ function mellanize(imagefile, side;
         around2 = mod2pi(-theta)
         startpoint = Point(centerX + (cos(around1) * radius1), centerY + (sin(around1) * radius1))
         endpoint   = Point(centerX + (cos(around2) * radius2), centerY + (sin(around2) * radius2))
-        save()
+        gsave()
             move(startpoint.x, startpoint.y)
             line(endpoint.x, endpoint.y)
             # don't look up point if x/y out of range (eg margins)
@@ -74,7 +74,7 @@ function mellanize(imagefile, side;
                 setline(0)
             end
             stroke()
-        restore()
+        grestore()
     end
 
     if annotation == true
