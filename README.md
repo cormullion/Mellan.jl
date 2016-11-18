@@ -31,13 +31,13 @@ The image should be square (obviously), and a JPG or 8 bit PNG.
 	    chord           = 4,
 	    annotation      = true)
 
-Use the `mellanize` function and supply a path name of an image and the required sidelength. The keyword parameters are all optional, but the ones of interest are:
+Use the `mellanize` function and supply a path name of an image and the required side length. The keyword parameters are all optional, but the ones of interest are:
 
--	linescaler
+- linescaler
 
 	a number greater than 0 (defaults to 5). The value of a pixel is multiplied by this number to give the width of the line. So with a value of 5, a 50% gray pixel is drawn with a width of 2.5 pixels, and a black pixel with a width of 5 pixels.
 
-- start radius
+- startradius
 
 	the distance away from the centre (default 5). This shouldn't be zero, because the lines don't work when they're too close to the centre, particularly if the chord length is long.
 
@@ -52,5 +52,3 @@ Use the `mellanize` function and supply a path name of an image and the required
 - annotation
 
     add annotation at the bottom of the image showing current settings (default false). This is useful when experimenting.
-
-Return value is currently the time taken...
