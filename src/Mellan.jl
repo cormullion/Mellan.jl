@@ -18,25 +18,52 @@ function getpixel(grayimage, x, y, imagewidth)
     return float(1 - grayimage[convert(Int, floor(x1)), convert(Int, floor(y1))])
 end
 
-function mellanize(imagefile, side;
-        # imagefile is path of 8bit PNG or JPG
-        # side is the required image size of sides
-        linescaler      = 5.0, # multiply the grey value of a pixel [0,1] to get this width of line
-        foregroundcolor = "black",
-        backgroundcolor = "antiquewhite2",
-        startradius     = 5.0,   # starting radius
-        margin          = 15,
-        awaystep        = 2.0,  # controls how much the radius lengthens for each step,
-        chord           = 10.0, # length of each stroke
-        annotation      = false
+"""
+    mellanize(imagefile, side;
+        linescaler       =  5.0, # multiply the grey value of a pixel [0,1] to get this width of line
+        minlinethickness =  0.0,
+        foregroundcolor  =  "black",
+        backgroundcolor  =  "antiquewhite2",
+        startradius      =  5.0,   # starting radius
+        margin           =  15,
+        awaystep         =  2.0,  # controls how much the radius lengthens for each step,
+        chord            =  10.0, # length of each stroke
+        annotation       =  false,
+        outfilename      =  ""
         )
+
+where `imagefile` is path of 8bit PNG or JPG, and `side` is the required image size.
+"""
+function mellanize(imagefile, side;
+    # imagefile is path of 8bit PNG or JPG
+    # side is the required image size of sides
+    linescaler       =  5.0, # multiply the grey value of a pixel [0,1] to get this width of line
+    minlinethickness =  0.0,
+    foregroundcolor  =  "black",
+    backgroundcolor  =  "antiquewhite2",
+    startradius      =  5.0,   # starting radius
+    margin           =  15,
+    awaystep         =  2.0,  # controls how much the radius lengthens for each step,
+    chord            =  10.0, # length of each stroke
+    annotation       =  false,
+    outfilename      =  ""
+    )
     pageside = side
     imagewidth = pageside - margin
-    outputfilename = splitext(imagefile)[1] * "-mellan-$(side).pdf"
+    if outfilename == ""
+        outputfilename = splitext(imagefile)[1] * "-mellan-$(side).pdf"
+    else
+        outputfilename = outfilename
+    end
     Drawing(pageside, pageside, outputfilename)
     img1 = Images.load(imagefile)
     img = Images.imresize(img1, (imagewidth, imagewidth))
     grayimage = convert(Images.Image{Gray}, img)
+
+    if sizeof(img1.data) == 0
+        return "no image to mellanize"
+    end
+
     origin()
     centerX = centerY = 0
     background(backgroundcolor)
@@ -64,7 +91,7 @@ function mellanize(imagefile, side;
                abs(startpoint.y) <  imw2 &&
                abs(endpoint.x)   <  imw2 &&
                abs(endpoint.y)   <  imw2
-                    setline(linescaler * getpixel(grayimage, startpoint.x, startpoint.y, imagewidth)) # actually should be average of start and end...
+                    setline(minlinethickness + linescaler * getpixel(grayimage, startpoint.x, startpoint.y, imagewidth)) # actually should be average of start and end...
             else
                 setline(0)
             end
@@ -80,7 +107,7 @@ function mellanize(imagefile, side;
             -pageside/2 + margin , (pageside/2) - 5)
     end
     finish()
-    preview()
+    return outputfilename
 end
 
 end
