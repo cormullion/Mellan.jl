@@ -11,8 +11,8 @@ import Images
 function getpixel(grayimage, x, y, imagewidth)
     # get grey value of pixel at x/y from image
     # since origin is in the middle of the page,
-    x1 = 1 + x + (imagewidth ÷ 2)
-    y1 = 1 + y + (imagewidth ÷ 2)
+    x1 = 1 + x + (imagewidth / 2)
+    y1 = 1 + y + (imagewidth / 2)
     # x and y are between -imagewidth/2 and +imagewidth/2
     # convert to values between 1 (not 0!) and imagewidth
     return float(1 - grayimage[convert(Int, floor(x1)), convert(Int, floor(y1))])
@@ -74,7 +74,7 @@ function mellanize(imagefile, side;
     radius1 = radius2 = 0
     imw2 = imagewidth/2
     sqrt2 = sqrt(2)
-    imsq = imw2 * sqrt2
+    imsq = ceil(imw2 * sqrt2)
     while radius2 < imsq # while larger radius is less than diagonal distance from center to corner
         radius1 = startradius + (awaystep * theta)
         around1 = mod2pi(-theta)
@@ -84,27 +84,26 @@ function mellanize(imagefile, side;
         startpoint = Point(centerX + (cos(around1) * radius1), centerY + (sin(around1) * radius1))
         endpoint   = Point(centerX + (cos(around2) * radius2), centerY + (sin(around2) * radius2))
         gsave()
-            move(startpoint.x, startpoint.y)
-            line(endpoint.x, endpoint.y)
-            # don't look up point if x/y out of range (eg margins)
-            if abs(startpoint.x) <  imw2 &&
-               abs(startpoint.y) <  imw2 &&
-               abs(endpoint.x)   <  imw2 &&
-               abs(endpoint.y)   <  imw2
-                    setline(minlinethickness + linescaler * getpixel(grayimage, startpoint.x, startpoint.y, imagewidth)) # actually should be average of start and end...
-            else
-                setline(0)
-            end
+        move(startpoint.x, startpoint.y)
+        line(endpoint.x, endpoint.y)
+        # don't look up point if x/y out of range (eg margins)
+        if abs(startpoint.x) <  imw2 &&
+           abs(startpoint.y) <  imw2 &&
+           abs(endpoint.x)   <  imw2 &&
+           abs(endpoint.y)   <  imw2
+              setline(minlinethickness + linescaler * getpixel(grayimage, startpoint.x, startpoint.y, imagewidth))
+              # although actually this should be the average of start and end points...
             stroke()
+        end
         grestore()
     end
 
     if annotation == true
-        # print the used parameter values discreetly in the left corner
+        # print the used parameter values discreetly
         fontsize(5)
         setopacity(0.2)
-        text("linescaler=$linescaler, startradius=$startradius, margin=$margin, awaystep=$awaystep, chord=$chord",
-            -pageside/2 + margin , (pageside/2) - 5)
+        text("linescaler=$linescaler, minlinethickness=$minlinethickness, startradius=$startradius, margin=$margin, awaystep=$awaystep, chord=$chord",
+            centerX , pageside/2 - 5, halign=:center)
     end
     finish()
     return outputfilename
