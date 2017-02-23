@@ -1,4 +1,4 @@
-VERSION >= v"0.4.0" && __precompile__()
+__precompile__()
 
 module Mellan
 
@@ -58,8 +58,6 @@ function mellanize(imagefile, side;
     Drawing(pageside, pageside, outputfilename)
     img1 = Images.load(imagefile)
     img = Images.imresize(img1, (imagewidth, imagewidth))
-
-#    grayimage = convert(Images.Image{Gray}, img)
     grayimage = Gray.(img)
 
     origin()

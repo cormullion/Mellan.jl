@@ -12,9 +12,7 @@ I want to investigate laser-cutting an image this way one day...
 
 # Requirements
 
-Julia v0.4 or above.
-
-You also need the Luxor (a simple Cairo wrapper, also on my GitHub page), Color, and Images packages.
+Julia v0.5 or above, and the packages Luxor, Color, and Images.
 
 The image should be square (obviously), and a JPG or 8 bit PNG.
 
