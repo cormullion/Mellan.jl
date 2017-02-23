@@ -58,11 +58,9 @@ function mellanize(imagefile, side;
     Drawing(pageside, pageside, outputfilename)
     img1 = Images.load(imagefile)
     img = Images.imresize(img1, (imagewidth, imagewidth))
-    grayimage = convert(Images.Image{Gray}, img)
 
-    if sizeof(img1.data) == 0
-        return "no image to mellanize"
-    end
+#    grayimage = convert(Images.Image{Gray}, img)
+    grayimage = Gray.(img)
 
     origin()
     centerX = centerY = 0
