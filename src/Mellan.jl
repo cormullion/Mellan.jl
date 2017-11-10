@@ -7,7 +7,7 @@ export mellanize
 using Luxor, Colors
 import Images
 
-# TODO: too much flipping between Int and Float here!
+# TODO: too much flipping between Int and Float here surely ?!
 function getpixel(grayimage, x, y, imagewidth)
     # get grey value of pixel at x/y from image
     # since origin is in the middle of the page,
@@ -57,6 +57,7 @@ function mellanize(imagefile, side;
     end
     Drawing(pageside, pageside, outputfilename)
     img1 = Images.load(imagefile)
+    img1 = permutedims(img1, (2, 1))
     img = Images.imresize(img1, (imagewidth, imagewidth))
     grayimage = Gray.(img)
 
@@ -64,7 +65,6 @@ function mellanize(imagefile, side;
     centerX = centerY = 0
     background(backgroundcolor)
     sethue(foregroundcolor)
-
     setlinecap("round")
     theta = pi/2  # starting rotation relative to East (anticlockwise +ve x axis)
     radius1 = radius2 = 0
@@ -80,16 +80,16 @@ function mellanize(imagefile, side;
         startpoint = Point(centerX + (cos(around1) * radius1), centerY + (sin(around1) * radius1))
         endpoint   = Point(centerX + (cos(around2) * radius2), centerY + (sin(around2) * radius2))
         gsave()
-        move(startpoint.x, startpoint.y)
-        line(endpoint.x, endpoint.y)
+        move(startpoint)
+        line(endpoint)
         # don't look up point if x/y out of range (eg margins)
         if abs(startpoint.x) <  imw2 &&
            abs(startpoint.y) <  imw2 &&
            abs(endpoint.x)   <  imw2 &&
            abs(endpoint.y)   <  imw2
               setline(minlinethickness + linescaler * getpixel(grayimage, startpoint.x, startpoint.y, imagewidth))
-              # although actually this should be the average of start and end points...
-            stroke()
+              # TODO although actually this should be the average of start and end points...
+            strokepath()
         end
         grestore()
     end
