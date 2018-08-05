@@ -1,3 +1,5 @@
+# just visual tests! 
+
 using Mellan, Luxor
 
 function alltests()

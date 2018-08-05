@@ -12,30 +12,32 @@ I want to investigate laser-cutting an image this way one day...
 
 # Requirements
 
-Julia v0.6, and the packages Luxor, Color, and Images.
+Julia v0.7, and the packages Luxor, Colors, and Images.
 
 The image should be square (obviously!), and a JPG or 8 bit PNG.
 
 # Usage
 
-    Pkg.clone("https://github.com/cormullion/Mellan.jl.git") # it's not registered...
+```
+] add https://github.com/cormullion/Mellan.jl.git # it's not registered...
 
-    using Mellan
+using Mellan
 
-    mellanize("obama.jpg", 800)
+mellanize("obama.jpg", 800)
 
-    mellanize("obama.jpg",
-	    800,
-	    linescaler       = 5,
-        minlinethickness = 0
-	    foregroundcolor  = "gray30",
-	    backgroundcolor  = "antiquewhite2",
-	    startradius      = 5,
-	    margin           = 10,
-	    awaystep         = 1,
-	    chord            = 4,
-	    annotation       = true,
-        outfilename      = "/tmp/proof.pdf")
+mellanize("obama.jpg",
+    800,
+    linescaler       = 5,
+    minlinethickness = 0
+    foregroundcolor  = "gray30",
+    backgroundcolor  = "antiquewhite2",
+    startradius      = 5,
+    margin           = 10,
+    awaystep         = 1,
+    chord            = 4,
+    annotation       = true,
+    outfilename      = "/tmp/proof.pdf")
+```
 
 Use the `mellanize` function and supply a path name of an image and the required side length. The keyword parameters are all optional, but the ones of interest are:
 
