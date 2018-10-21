@@ -1,4 +1,4 @@
-# just visual tests! 
+# just visual tests!
 
 using Mellan, Luxor
 
@@ -55,16 +55,16 @@ end
 
 if get(ENV, "MELLAN_KEEP_TEST_RESULTS", false) == "true"
         cd(mktempdir())
-        info("...Keeping the results")
+        @info "...Keeping the results"
         alltests()
-        info("Test images saved in: $(pwd())")
+        @info "Test images saved in: $(pwd())"
 else
     mktempdir() do tmpdir
         cd(tmpdir)
-        info("running tests in: $(pwd())")
-        info("but not keeping the results")
+        @info "running tests in: $(pwd())"
+        @info "but not keeping the results"
         alltests()
-        info("Test images not saved. To see the images, next time do this before running")
-        info(" ENV[\"MELLAN_KEEP_TEST_RESULTS\"] = \"true\"")
+        @info "Test images not saved. To see the images, next time do this before running"
+        @info " ENV[\"MELLAN_KEEP_TEST_RESULTS\"] = \"true\""
     end
 end
