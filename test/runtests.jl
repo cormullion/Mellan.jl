@@ -3,68 +3,61 @@
 using Mellan, Luxor
 
 function alltests()
-    mellanize(dirname(@__FILE__) * "/obama.jpg",
+    mellanize(dirname(@__FILE__) * "/mona.png",
         800,
-        linescaler      = 5,
-        outfilename     = "thanks-obama-mellan-800.pdf",
+        lineweight      = 5,
+        output          = "mona-mellan-800.pdf",
         foregroundcolor = "gray30",
         backgroundcolor = "antiquewhite2",
         startradius     = 5,
         margin          = 10,
-        awaystep        = 1,
+        tightness       = 1,
         chord           = 4)
 
-    mellanize(dirname(@__FILE__) * "/steve-jobs.jpg",
-        800,
-        outfilename     = "think-different-mellan-800.pdf",
-        linescaler      = 4,
-        foregroundcolor = "gray25",
-        backgroundcolor = "antiquewhite3",
-        startradius     = 5,
-        margin          = 20,
-        awaystep        = 0.75,
-        chord           = 3,
-        annotation      = true
-        )
-
-    mellanize(dirname(@__FILE__) * "/obama.jpg",
-        400,
-        linescaler      = 5,
-        outfilename     = "thanks-obama-mellan-400.pdf",
+    mellanize(dirname(@__FILE__) * "/mona.png",
+        500,
+        lineweight      = 5,
+        output          = "mona-mellan-500.pdf",
         foregroundcolor = "gray20",
         backgroundcolor = "antiquewhite2",
         startradius     = 3,
         margin          = 10,
-        awaystep        = 0.8,
+        tightness       = 0.8,
         chord           = 3)
 
-    mellanize(dirname(@__FILE__) * "/steve-jobs.jpg",
-        400,
-        linescaler      = 4,
-        outfilename     = "think-different-mellan-400.pdf",
-        minlinethickness = 0.2,
-        foregroundcolor =  "gray20",
-        backgroundcolor =  "antiquewhite3",
+    mellanize(dirname(@__FILE__) * "/mona.png",
+        500,
+        lineweight      = 3,
+        output          = "mona-mellan.svg",
+        minlineweight   = 0.1,
+        foregroundcolor =  "grey5",
+        backgroundcolor =  "gold",
         startradius     = 5,
-        margin          = 20,
-        awaystep        = 0.5,
+        margin          = 0,
+        tightness       = 0.5,
         chord           = 3,
-        annotation      = true
-        )
+        annotation      = true)
 end
 
 if get(ENV, "MELLAN_KEEP_TEST_RESULTS", false) == "true"
-        cd(mktempdir())
-        @info "...Keeping the results"
+        # they changed mktempdir in v1.3
+        if VERSION <= v"1.2"
+            cd(mktempdir())
+        else
+            cd(mktempdir(cleanup=false))
+        end
+        @info("...Keeping the Mellan test output in: $(pwd())")
         alltests()
-        @info "Test images saved in: $(pwd())"
+        @info("Mellan test images were saved in: $(pwd())")
 else
     mktempdir() do tmpdir
-        cd(tmpdir)
-        @info "running tests in: $(pwd())"
-        @info "but not keeping the results"
-        alltests()
-        @info "Test images not saved. To see the images, next time do this before running"
-        @info " ENV[\"MELLAN_KEEP_TEST_RESULTS\"] = \"true\""
+        cd(tmpdir) do
+            @info("running Mellan tests in: $(pwd())")
+            @info("but not keeping the results")
+            @info("because you didn't do: ENV[\"MELLAN_KEEP_TEST_RESULTS\"] = \"true\"")
+            alltests()
+            @info("Test images weren't saved. To see the test images, next time do this before running:")
+            @info(" ENV[\"MELLAN_KEEP_TEST_RESULTS\"] = \"true\"")
+        end
     end
 end

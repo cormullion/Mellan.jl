@@ -3,9 +3,11 @@ module Mellan
 export mellanize
 
 using Luxor, Colors
+
 import Images
 
 # TODO: too much flipping between Int and Float here surely ?!
+
 function getpixel(grayimage, x, y, imagewidth)
     # get grey value of pixel at x/y from image
     # since origin is in the middle of the page,
@@ -17,48 +19,50 @@ function getpixel(grayimage, x, y, imagewidth)
 end
 
 """
-    mellanize(imagefile, side;
-        linescaler       =  5.0, # multiply the grey value of a pixel [0,1] to get this width of line
-        minlinethickness =  0.0,
+    mellanize(imagefile, side=500;
+        lineweight       =  5.0, # multiply the grey value of a pixel [0,1] to get this width of line
+        minlineweight    =  0.0,
         foregroundcolor  =  "black",
         backgroundcolor  =  "antiquewhite2",
         startradius      =  5.0,   # starting radius
-        margin           =  15,
-        awaystep         =  2.0,  # controls how much the radius lengthens for each step,
+        margin           =  5,
+        tightness         =  2.0,  # controls how much the radius lengthens for each step,
         chord            =  10.0, # length of each stroke
         annotation       =  false,
-        outfilename      =  ""
+        output           =  ""
         )
 
 where `imagefile` is path of 8bit PNG or JPG, and `side` is the required image size.
 """
-function mellanize(imagefile, side;
-    # imagefile is path of 8bit PNG or JPG
-    # side is the required image size of sides
-    linescaler       =  5.0, # multiply the grey value of a pixel [0,1] to get this width of line
-    minlinethickness =  0.0,
-    foregroundcolor  =  "black",
-    backgroundcolor  =  "antiquewhite2",
-    startradius      =  5.0,   # starting radius
-    margin           =  15,
-    awaystep         =  2.0,  # controls how much the radius lengthens for each step,
-    chord            =  10.0, # length of each stroke
-    annotation       =  false,
-    outfilename      =  ""
-    )
+function mellanize(imagefile, side=500;
+        # imagefile is path of 8bit PNG or JPG
+        # side is the required image size of sides
+        lineweight       =  3.0, # multiply the grey value of a pixel [0,1] to get this width of line
+        minlineweight    =  0.0,
+        foregroundcolor  =  "black",
+        backgroundcolor  =  "antiquewhite2",
+        startradius      =  5.0,   # starting radius
+        margin           =  5,
+        tightness        =  0.5,  # controls how much the radius lengthens for each step,
+        chord            =  5.0, # length of each stroke
+        annotation       =  false,
+        output           =  ""
+        )
     pageside = side
     imagewidth = pageside - margin
-    if outfilename == ""
+    if output      == ""
         outputfilename = splitext(imagefile)[1] * "-mellan-$(side).pdf"
     else
-        outputfilename = outfilename
+        outputfilename = output
     end
-    Drawing(pageside, pageside, outputfilename)
     img1 = Images.load(imagefile)
+    if isnothing(img1)
+        error("Can't find a suitable image in \"$(imagefile)\"")
+    end
     img1 = permutedims(img1, (2, 1))
     img = Images.imresize(img1, (imagewidth, imagewidth))
     grayimage = Gray.(img)
-
+    d = Drawing(pageside, pageside, outputfilename)
     origin()
     centerX = centerY = 0
     background(backgroundcolor)
@@ -70,10 +74,10 @@ function mellanize(imagefile, side;
     sqrt2 = sqrt(2)
     imsq = ceil(imw2 * sqrt2)
     while radius2 < imsq # while larger radius is less than diagonal distance from center to corner
-        radius1 = startradius + (awaystep * theta)
+        radius1 = startradius + (tightness * theta)
         around1 = mod2pi(-theta)
         theta += chord/radius1
-        radius2 = startradius + (awaystep * theta)
+        radius2 = startradius + (tightness * theta)
         around2 = mod2pi(-theta)
         startpoint = Point(centerX + (cos(around1) * radius1), centerY + (sin(around1) * radius1))
         endpoint   = Point(centerX + (cos(around2) * radius2), centerY + (sin(around2) * radius2))
@@ -85,7 +89,7 @@ function mellanize(imagefile, side;
            abs(startpoint.y) <  imw2 &&
            abs(endpoint.x)   <  imw2 &&
            abs(endpoint.y)   <  imw2
-              setline(minlinethickness + linescaler * getpixel(grayimage, startpoint.x, startpoint.y, imagewidth))
+              setline(minlineweight + lineweight * getpixel(grayimage, startpoint.x, startpoint.y, imagewidth))
               # TODO although actually this should be the average of start and end points...
             strokepath()
         end
@@ -95,12 +99,12 @@ function mellanize(imagefile, side;
     if annotation == true
         # print the used parameter values discreetly
         fontsize(5)
-        setopacity(0.2)
-        text("linescaler=$linescaler, minlinethickness=$minlinethickness, startradius=$startradius, margin=$margin, awaystep=$awaystep, chord=$chord",
+        setopacity(0.4)
+        text("lineweight=$lineweight, minlineweight=$minlineweight, startradius=$startradius, margin=$margin, tightness=$tightness, chord=$chord",
             centerX , pageside/2 - 5, halign=:center)
     end
     finish()
-    return outputfilename
+    return d
 end
 
-end
+end # module
