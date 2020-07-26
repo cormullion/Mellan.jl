@@ -18,8 +18,6 @@ The image should be square (obviously!), and a JPG or 8 bit PNG.
 # Usage
 
 ```
-] add https://github.com/cormullion/Mellan.jl.git # it's not yet registered...
-
 using Mellan
 
 mellanize("Mellan/test/mona.png" output="/tmp/mona.svg")
