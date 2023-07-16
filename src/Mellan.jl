@@ -26,8 +26,8 @@ end
         backgroundcolor  =  "antiquewhite2",
         startradius      =  5.0,   # starting radius
         margin           =  5,
-        tightness         =  2.0,  # controls how much the radius lengthens for each step,
-        chord            =  10.0, # length of each stroke
+        tightness         = 2.0,  # controls how much the radius lengthens for each step,
+        chord            =  2.0, # length of each stroke
         annotation       =  false,
         output           =  ""
         )
@@ -44,7 +44,7 @@ function mellanize(imagefile, side=500;
         startradius      =  5.0,   # starting radius
         margin           =  5,
         tightness        =  0.5,  # controls how much the radius lengthens for each step,
-        chord            =  5.0, # length of each stroke
+        chord            =  2.0, # length of each stroke
         annotation       =  false,
         output           =  ""
         )
@@ -89,7 +89,7 @@ function mellanize(imagefile, side=500;
            abs(startpoint.y) <  imw2 &&
            abs(endpoint.x)   <  imw2 &&
            abs(endpoint.y)   <  imw2
-              setline(minlineweight + lineweight * getpixel(grayimage, startpoint.x, startpoint.y, imagewidth))
+              setline(minlineweight + (lineweight * convert(Float64,  getpixel(grayimage, startpoint.x, startpoint.y, imagewidth))))
               # TODO although actually this should be the average of start and end points...
             strokepath()
         end
@@ -99,9 +99,9 @@ function mellanize(imagefile, side=500;
     if annotation == true
         # print the used parameter values discreetly
         fontsize(5)
-        setopacity(0.4)
+        setopacity(0.7)
         text("lineweight=$lineweight, minlineweight=$minlineweight, startradius=$startradius, margin=$margin, tightness=$tightness, chord=$chord",
-            centerX , pageside/2 - 5, halign=:center)
+            centerX, pageside/2 - 5, halign=:center)
     end
     finish()
     return d
