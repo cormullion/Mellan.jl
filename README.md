@@ -23,8 +23,7 @@ The image should be square (obviously!), and a JPG or 8 bit PNG.
 ```
 using Mellan
 
-mellanize("Mellan/test/mona.png", output="/tmp/mona.svg")
-
+mellanize(dirname(dirname(pathof(Mellan))) * "/test/mona.png", output="/tmp/mona.svg")
 ```
 
 draws the image above. There are plenty of options to play with:
