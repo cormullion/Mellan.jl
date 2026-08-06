@@ -35,7 +35,7 @@ mellanize("Mellan/test/mona.png",
            output          = "mona-mellan.svg",
            minlineweight   = 0.1,
            foregroundcolor = "black",
-           backgroundcolor = "gold2",
+           backgroundcolor = "gold2", # or "" for none
            startradius     = 5,
            margin          = 0,
            tightness       = 0.5,

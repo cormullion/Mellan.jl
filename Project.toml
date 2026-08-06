@@ -1,7 +1,7 @@
 name = "Mellan"
 uuid = "9395f11c-09ed-45be-886c-23f223b99ebb"
 authors = ["cormullion <cormullion@mac.com>"]
-version = "0.2.0"
+version = "1.0.0"
 
 [deps]
 Luxor = "ae8d54c2-7ccd-5906-9d76-62fc9837b5bc"
@@ -20,8 +20,8 @@ test = ["Test", "Luxor"]
 
 [compat]
 julia = "1"
-Luxor = "^3"
-Colors = "0.9.0, 0.10.0, 0.11.0, 0.12.0"
-Images = "0.19, 0.20, 0.21, 0.22, 0.23, 0.24, 0.25"
+Luxor = "4"
+Colors = "0.9, 0.10, 0.11, 0.12, 0.13"
+Images = "0.24, 0.25, 0.26"
 QuartzImageIO = "0.6, 0.7"
 FileIO = "1"
