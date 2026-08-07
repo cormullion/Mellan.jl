@@ -49,6 +49,10 @@ function mellanize(
         annotation = false,
         output = ""
     )
+
+    if iszero(tightness)
+        tightness = 0.1
+    end
     pageside = side
     imagewidth = pageside - margin
     if output == ""

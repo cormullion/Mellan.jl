@@ -29,17 +29,17 @@ mellanize(dirname(dirname(pathof(Mellan))) * "/test/mona.png", output="/tmp/mona
 draws the image above. There are plenty of options to play with:
 
 ```
-mellanize("Mellan/test/mona.png",
-           500, # default side length
-           lineweight      = 3,
-           output          = "mona-mellan.svg",
-           minlineweight   = 0.1,
+mellanize("mona.png",
+           600,            # defaults to 500 if omitted
+           lineweight      = 3, # greypixels scale to
+           output          = "mona-mellan.svg", # or PDF or PNG
+           minlineweight   = 0.1, # if 0.0, line will disappear
            foregroundcolor = "black",
            backgroundcolor = "gold2", # or "" for none
            startradius     = 5,
            margin          = 0,
-           tightness       = 0.5,
-           chord           = 2,
+           tightness       = 0.5, # gap between successive
+           chord           = 2, # length of each line segment
            annotation      = true)
 ```
 
@@ -61,7 +61,7 @@ Use the `mellanize` function and supply a path name of an image and optionally t
 
 - tightness
 
-    this value determines the spacing of the groove (default 0.5).
+    this value (>= 0.1) determines the spacing of the groove (default 0.5).
 
 - chord
 
