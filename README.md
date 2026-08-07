@@ -1,8 +1,8 @@
+|  **Build Status**                          | **Code Coverage**               | **PkgEval**|
+|:-----------------------------------------:|:-------------------------------:|:-------------------------------:|
+| [![Build Status][ci-img]][ci-url]         | [![][codecov-img]][codecov-url] | [![PkgEval][pkgeval-img]][pkgeval-url]|
 
-| **Build Status**                          | **Code Coverage**               |
-|:-----------------------------------------:|:-------------------------------:|
-| [![Build Status][ci-img]][ci-url]         | [![][codecov-img]][codecov-url] |
-| [![Build Status][appvey-img]][appvey-url] |                                 |
+
 
 # Mellan
 
@@ -86,3 +86,6 @@ Use the `mellanize` function and supply a path name of an image and optionally t
 
 [codecov-img]: https://codecov.io/gh/cormullion/Mellan.jl/branch/master/graph/badge.svg
 [codecov-url]: https://codecov.io/gh/cormullion/Mellan.jl
+
+[pkgeval-img]: https://juliaci.github.io/NanosoldierReports/pkgeval_badges/M/Mellan.svg
+[pkgeval-url]: https://juliaci.github.io/NanosoldierReports/pkgeval_badges/M/Mellan.html
