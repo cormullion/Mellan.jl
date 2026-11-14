@@ -1,0 +1,5 @@
+[deps]
+Aqua = "4c88cf16-eb10-579e-8560-4a9242c79595"
+Luxor = "ae8d54c2-7ccd-5906-9d76-62fc9837b5bc"
+Mellan = "9395f11c-09ed-45be-886c-23f223b99ebb"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"

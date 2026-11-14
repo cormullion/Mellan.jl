@@ -20,27 +20,30 @@ The image should be square (obviously!), and a JPG or 8 bit PNG.
 
 # Usage
 
-```
+```julia
+using Pkg
+Pkg.add("Mellan")
 using Mellan
 
-mellanize(dirname(dirname(pathof(Mellan))) * "/test/mona.png", output="/tmp/mona.svg")
+mellanize(dirname(dirname(pathof(Mellan))) * 
+    "/test/mona.png", output="/tmp/mona.svg")
 ```
 
 draws the image above. There are plenty of options to play with:
 
 ```
 mellanize("mona.png",
-           600,            # defaults to 500 if omitted
-           lineweight      = 3, # greypixels scale to
-           output          = "mona-mellan.svg", # or PDF or PNG
-           minlineweight   = 0.1, # if 0.0, line will disappear
-           foregroundcolor = "black",
-           backgroundcolor = "gold2", # or "" for none
-           startradius     = 5,
-           margin          = 0,
-           tightness       = 0.5, # gap between successive
-           chord           = 2, # length of each line segment
-           annotation      = true)
+    600, # defaults to 500 if omitted
+    lineweight      = 3, # greypixels scale to
+    output          = "mona-mellan.svg", # or .pdf/.png
+    minlineweight   = 0.1, # if 0.0, line will disappear
+    foregroundcolor = "black",
+    backgroundcolor = "gold2", # or "" for none
+    startradius     = 5,
+    margin          = 0,
+    tightness       = 0.5, # gap between successive
+    chord           = 2, # length of each line segment
+    annotation      = true)
 ```
 
 ![another mellanized Mona Lisa](images/mona-mellan.svg)
